@@ -1,4 +1,34 @@
 import requests
+import os
+import logging
+from pyrogram import Client, filters
+import asyncio 
+from datetime import datetime
+import time
+from config import *
+from database import *
+from video import *
+import static_ffmpeg
+
+
+
+# Configure logging
+logging.basicConfig(
+    filename='PHVDL.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+
+
+
+# Create the Pyrogram client
+app = Client("SpidyPHVDL", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN,workers=100)
+
+
+static_ffmpeg.add_paths()
+
+
 
 def get_data():
     try:
@@ -13,4 +43,48 @@ def get_data():
         return f"Request failed: {e}"
 
 
-response_data = get_data()
+
+
+
+async def main():
+    async with app:
+        logging.info("Bot Started")
+        video_urls = []
+        video_urls = get_data()
+        data = video_urls
+        video_urls = [ i[-1] for i in video_urls]
+        uploading = []
+        for video_url in video_urls:
+            logging.info(f"{video_urls.index(video_url)} : {video_url}")
+            video_hash = hash(video_url)
+            download_dir = f'downloads/{video_hash}'
+            if not os.path.exists(download_dir):
+                os.makedirs(download_dir)
+            try:
+                downloaded_video_path = download_video(video_url, output_path=download_dir)
+                exact_file_path = None
+                thumbnail_path = None
+                title = data[video_urls.index(video_url)][0]
+                for root, dirs, files in os.walk(download_dir):
+                    for file in files:
+                        if file.endswith(('.mp4', '.mkv', '.webm')):
+                            exact_file_path = os.path.join(root, file)
+                        elif file.endswith(('.jpg', '.png', '.webp')):
+                            thumbnail_path = os.path.join(root, file)
+                        if exact_file_path and thumbnail_path and exact_file_path.split("/", 2)[-1] not in [uploads[0] for uploads in uploading]:
+                                        uploading.append([exact_file_path.split("/", 2)[-1],video_url])
+                                        video = await upload_video(app, DRIVE_ID, exact_file_path, thumbnail_path,title)
+                                        result = {
+                                            "URL": video_url,
+                                            "File_Name": exact_file_path.split("/", 2)[-1],
+                                            "CHAT_ID": DRIVE_ID,    
+                                         }
+                                        insert_document(db, table_name, result)
+                                        os.remove(exact_file_path)
+                                        os.remove(thumbnail_path)
+                else:
+                    logging.error(f"Downloaded video or thumbnail file not found in '{download_dir}' directory.")
+            except Exception as e:
+                logging.error(f"An error occurred: {e}")
+
+app.run(main())
