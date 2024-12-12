@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 import asyncio 
 from datetime import datetime
 import time
-from config import *
+#from config import *
 from database import *
 from video import *
 import static_ffmpeg
