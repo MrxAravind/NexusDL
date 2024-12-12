@@ -23,7 +23,7 @@ logging.basicConfig(
 
 
 # Create the Pyrogram client
-app = Client("SpidyPHVDL", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN,workers=100)
+#app = Client("SpidyPHVDL", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN,workers=100)
 
 
 static_ffmpeg.add_paths()
@@ -47,7 +47,6 @@ def get_data():
 
 
 async def main():
-    async with app:
         logging.info("Bot Started")
         video_urls = []
         video_urls = get_data()
@@ -87,4 +86,4 @@ async def main():
             except Exception as e:
                 logging.error(f"An error occurred: {e}")
 
-app.run(main())
+asyncio.run(main())
