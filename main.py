@@ -6,7 +6,7 @@ import asyncio
 from datetime import datetime
 import time
 #from config import *
-from database import *
+#from database import *
 from video import *
 import static_ffmpeg
 
@@ -50,6 +50,7 @@ async def main():
         logging.info("Bot Started")
         video_urls = []
         video_urls = get_data()
+        print(video_urls)
         data = video_urls
         video_urls = [ i[-1] for i in video_urls]
         uploading = []
