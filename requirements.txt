@@ -5,4 +5,4 @@ TgCrypto
 static_ffmpeg
 python-dotenv
 psutil
-supabase
+pymongo
