@@ -14,7 +14,7 @@ import static_ffmpeg
 
 # Configure logging
 logging.basicConfig(
-    filename='PHVDL.log',
+    filename='NexusDL.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
@@ -35,7 +35,7 @@ def get_data():
         url = "https://stupidfucker79.github.io/Shiny-Scarper/links.txt"
         response = requests.get(url)
         if response.status_code == 200:
-            data = response.text.split("\n")
+            data = response.text.split("\n\n")
             return [i.strip() for i in data]
         else:
             return f"Error: Received status code {response.status_code}"
