@@ -27,8 +27,6 @@ def download_video(url, output_path='downloads'):
             print(f"Downloading... {url}")
             YoutubeDL(ydl_opts).download([url])
             print(f"Video downloaded successfully from URL: {url}")
-        else:
-            print(f"Skipping: {info['title']} (Views: {views}, Likes: {likes})")
     except Exception as e:
         print(f"Failed to download video from URL: {url}. Error: {e}")
 
