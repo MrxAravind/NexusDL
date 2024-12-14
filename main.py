@@ -68,11 +68,9 @@ async def main():
                     for file in files:
                         if file.endswith(('.mp4', '.mkv', '.webm')):
                             exact_file_path = os.path.join(root, file)
-                        elif file.endswith(('.jpg', '.png', '.webp')):
-                            thumbnail_path = os.path.join(root, file)
-                        if exact_file_path and thumbnail_path and exact_file_path.split("/", 2)[-1] not in [uploads[0] for uploads in uploading]:
+                        if exact_file_path and exact_file_path.split("/", 2)[-1] not in [uploads[0] for uploads in uploading]:
                                         uploading.append([exact_file_path.split("/", 2)[-1],video_url])
-                                        video = await upload_video(app, DRIVE_ID, exact_file_path, thumbnail_path,title)
+                                        video = await upload_video(app, DUMP_ID, exact_file_path)
                                         result = {
                                             "URL": video_url,
                                             "File_Name": exact_file_path.split("/", 2)[-1],
