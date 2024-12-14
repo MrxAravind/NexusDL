@@ -5,8 +5,8 @@ from pyrogram import Client, filters
 import asyncio 
 from datetime import datetime
 import time
-#from config import *
-#from database import *
+from config import *
+from database import *
 from video import *
 import static_ffmpeg
 
@@ -23,7 +23,7 @@ logging.basicConfig(
 
 
 # Create the Pyrogram client
-#app = Client("SpidyPHVDL", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN,workers=100)
+app = Client("SpidyPHVDL", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN,workers=100)
 
 
 static_ffmpeg.add_paths()
