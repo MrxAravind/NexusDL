@@ -51,8 +51,6 @@ async def main():
         video_urls = []
         video_urls = get_data()
         print(video_urls)
-        data = video_urls
-        video_urls = [ i[-1] for i in video_urls]
         uploading = []
         for video_url in video_urls:
             logging.info(f"{video_urls.index(video_url)} : {video_url}")
