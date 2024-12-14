@@ -19,7 +19,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-db = connect_to_mongodb(DATABASE, "Spidydb")
+db = connect_to_mongodb(DATABASE_URL, "Spidydb")
 collection_name = "NexusDL"
 
 
