@@ -4,7 +4,7 @@ from yt_dlp import YoutubeDL
 import asyncio 
 from datetime import datetime
 import time
-#from config import *
+from config import *
 
 def download_progress_hook(d):
     if d['status'] == 'downloading':
