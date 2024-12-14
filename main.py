@@ -53,7 +53,6 @@ async def main():
         print(video_urls)
         uploading = []
         for video_url in video_urls:
-            logging.info(f"{video_urls.index(video_url)} : {video_url}")
             video_hash = hash(video_url)
             download_dir = f'downloads/{video_hash}'
             if not os.path.exists(download_dir):
