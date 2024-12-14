@@ -18,7 +18,6 @@ def download_video(url, output_path='downloads'):
         with YoutubeDL({'skip_download': True, 'quiet': True, 'dump_single_json': True}) as ydl:
             info = ydl.extract_info(url, download=False)
             ydl_opts = {
-                'format': 'bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720][ext=mp4]',
                 'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),
                 'external_downloader': 'aria2c',
                 'external_downloader_args': ['-j', '16', '-x', '16', '-s', '16', '-k', '10M'],
