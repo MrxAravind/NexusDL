@@ -33,9 +33,9 @@ def upload_progress(current, total):
     if current == total:
         print(f"Uploaded")
 
-async def upload_video(app, chat_id, file_path, thumbnail_path):
+async def upload_video(app, chat_id, file_path):
     try:
-        video = await app.send_video(chat_id, file_path, caption=file_path.split("/", 2)[-1], thumb=thumbnail_path, progress=upload_progress)
+        video = await app.send_video(chat_id, file_path, caption=file_path.split("/", 2)[-1], progress=upload_progress)
         print(f"Video {file_path.split('/', 2)[-1]} uploaded successfully to chat ID: {chat_id}")
         return video
     except Exception as e:
